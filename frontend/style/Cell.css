@@ -1,0 +1,20 @@
+.cell {
+  width: 100%;
+  /*height: 100%;*/ /* why there's no effect? */
+  vertical-align: middle;
+  /* padding-left: 5px; */
+  /* padding-right: 5px; */
+  font-weight: normal;
+}
+
+.cell::-webkit-scrollbar {
+  display: none;
+}
+
+.cell.xavier-cell-empty {
+  color: #aaaaaa !important;
+}
+
+.text-bold {
+  font-weight: bold;
+}

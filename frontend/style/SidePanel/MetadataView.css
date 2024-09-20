@@ -1,0 +1,268 @@
+.xavier-metadata-view {
+  display: block;
+  width: 100%;
+  height: 100%; /* Leave space for xavier-sidepanel-view-title */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* mv == metadata view, df = dataframe */
+.xavier-mv-df-list {
+  display: block;
+  width: 100%;
+  height: calc(100% - 20px);
+}
+
+.xavier-mv-df {
+  display: block;
+  width: 100%;
+}
+
+/* mdt = mv-df-title */
+.xavier-mdt-wrapper {
+  display: block;
+  width: 100%;
+  height: 25px;
+}
+
+.xavier-mdt-name-wrapper {
+  display: inline-block;
+  width: 100%;
+  /* width: calc(100% - 63px); */
+  height: 100%;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.xavier-mdt-name-wrapper:hover {
+  background-color: var(--jp-layout-color2);
+}
+
+.xavier-mdt-name {
+  display: inline-block;
+  width: calc(60% - 10px); /* leave the space for xavier-mdt-shape */
+  height: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #000;
+  font-weight: 700;
+  font-size: var(--xavier-df-font-size);
+  line-height: calc(100% + 10px); /* Maybe hard code */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xavier-mdt-shape {
+  display: inline-block;
+  width: 40%; /* Correspond to .xavier-mdt-name */
+  height: 100%;
+  color: #000;
+  font-size: var(--xavier-df-font-size);
+  line-height: calc(100% + 10px); /* Maybe hard code */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xavier-mv-col-list {
+  display: block;
+  width: 100%;
+}
+
+.xavier-mv-col {
+  display: block;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.xavier-mv-itemlist-wrapper {
+  display: block;
+  width: 100%;
+  /* min-height: 50px; */
+}
+
+.xavier-mv-cate {
+  display: block;
+  width: calc(100% - 10px);
+  height: var(--xavier-cate-item-height);
+  padding-left: 10px;
+}
+
+.xavier-mv-num-chart-label {
+  font-size: 12px;
+}
+
+.xavier-mct-name.xavier-mv-cate-value {
+  overflow: hidden;
+  font-size: var(--xavier-value-font-size);
+  width: 85%;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* padding-left: 0; */
+}
+
+.xavier-mv-search-bar {
+  display: block;
+  width: 100%;
+  /* width: calc(100% - 5px - var(--xavier-scrollbar-width));  */
+  /* consider the margin-left and the scrollbar width */
+  /* margin-left: 5px; */
+  /* margin-top: 5px; */
+}
+
+.xavier-mv-search-input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: var(--xavier-value-font-size);
+}
+
+/* .xavier-mv-search-input {
+  width: 30%;
+} */
+
+.xavier-mv-num-search-input {
+  width: calc(50% - 5px - var(--xavier-scrollbar-width)); 
+}
+
+.xavier-mv-num-search-mid {
+  display: inline-block;
+  width: 7%;
+  text-align: center;
+  font-size: var(--xavier-value-font-size);
+}
+
+.xavier-mv-search-input:focus {
+  border-color: #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102, 175, 233, .6);
+}
+
+.xavier-mv-search-container {
+  position: absolute;
+  top: 60px;
+  width: 180px;
+  /* width: 100%; */
+  z-index: 1;
+}
+
+
+.xavier-mv-num-list {
+  display: block;
+  width: calc(100% - var(--xavier-scrollbar-width)); /* consider the scrollbar width */
+  max-height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.xavier-mv-cate-list {
+  display: block;
+  width: 100%;
+  max-height: calc(var(--xavier-cate-item-height) * 9.5);
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: white;
+}
+
+/* mct = mv-col-title */
+.xavier-mct-wrapper {
+  display: block;
+  width: 100%;
+  height: 25px;
+}
+
+.xavier-mct-name-wrapper {
+  display: inline-block;
+  /* width: calc(100% - 21px); */
+  height: 100%;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.xavier-mct-name-wrapper:hover {
+  background-color: var(--jp-layout-color2);
+}
+
+.xavier-mct-name {
+  display: inline-block;
+  width: calc(55% - 10px); /* leave the space for xavier-mct-histogram */
+  height: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #000;
+  font-weight: normal;
+  /* font-size: 14px; */ /* Default is 13px */
+  line-height: calc(100% + 10px); /* Maybe hard code */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xavier-mct-histogram {
+  display: inline-flex;
+  position: relative;
+  width: calc(45% - 10px); /* leave the space for xavier-mct-name */
+  height: 100%;
+  /* margin-right: 10px; */
+  background: #f5f5f5;
+  align-items: flex-end;
+}
+
+.xavier-mct-histogram.xavier-mv-cate-hist {
+  width: calc(30% - 15px);
+}
+
+.xavier-mct-histogram-rect {
+  display: block;
+  height: 100%;
+  background-color: #b5e1f7; /*#EDF7FA too light*/
+}
+
+.xavier-mct-histogram-text {
+  font-size: 10px; /*hard code */
+  display: inline-block;
+  position: absolute;
+  width: calc(100% - 10px);
+  height: 100%;
+  color: black;
+  right: 10px;
+  flex-shrink: 1;
+  text-align: right;
+  line-height: calc(100% + 10px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xavier-mct-histogram-text.xavier-mv-cate-str {
+  font-size: var(--xavier-value-font-size);
+}
+
+.xavier-fci-wrapper {
+  display: inline-block;
+  width: var(--xavier-icon-width);
+  height: 100%;
+  text-align: center;
+  vertical-align: top;
+  line-height: calc(100% + 15px); /* Maybe hard code */
+  cursor: pointer;
+}
+
+.xavier-fci-wrapper:hover {
+  background-color: var(--jp-layout-color2);
+}
+
+/* .column-histogram-quan {
+  background: white; 
+  height: 20px; 
+  width: 150px; 
+  margin-right: 10px; 
+  position: relative; 
+} */
+
+.xavier-mct-histogram-bar {
+  display: inline-block;
+}

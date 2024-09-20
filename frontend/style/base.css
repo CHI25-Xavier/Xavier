@@ -1,0 +1,102 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+@import url('./complete.css');
+@import url('./SpreadSheet.css');
+@import url('./Cell.css');
+@import url('./docpanel.css');
+@import url('./SidePanel/SidePanel.css');
+
+/* 隐藏数字输入框的上下按钮 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+    width: var(--xavier-scrollbar-width);
+    height: var(--xavier-scrollbar-width);
+    background-color: #F9F9F9;
+}
+   
+  /*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #fff;
+}
+   
+  /*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #755d5d;
+}
+
+:root {
+  --xavier-icon-width: 21px;
+  --xavier-df-font-size: 14px;
+  --xavier-col-font-size: 13px;
+  --xavier-value-font-size: 12px;
+  --xavier-cate-item-height: 20px;
+  --xavier-scrollbar-width: 5px;
+}
+
+.column-type-icon {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.column-histogram-cate {
+    background: #f5f5f5; /* Removed the quotes around the color value */
+    height: 20px;
+    width: 150px;
+    margin-right: 10px;
+    display: flex; /* Removed the quotes */
+    align-items: center; /* Corrected the case and removed quotes */
+    position: relative; /* Removed the quotes */
+  }
+
+  .column-percentage {
+    background: #f5f5f5;
+    height: 20px;
+    width: 75px;
+  }
+
+  .hidden-df-message {
+    margin-left: 7.5px;
+  }
+
+  .hidden-column-message {
+    margin-left: 20px;
+  }
+
+  .bold-red {
+    font-weight: bold;
+    color: red;
+  }
+
+  .column-sort {
+    width: 12px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+}

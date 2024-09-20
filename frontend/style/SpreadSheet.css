@@ -1,0 +1,56 @@
+.spreadsheet {
+  text-align: left;
+}
+
+.xavier-mv-table-wrapper {
+  /* min-height: 120px; */
+  width: 100%;
+}
+
+.xavier-mv-header-cell {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.xavier-mv-confirm-btn {
+  margin-top: 5px;
+  height: 30px;
+  width: 100%;
+  background-color: #dedede;
+  border: none;
+  cursor: pointer;
+}
+
+.row {
+  width: auto;
+  display: table-row;
+}
+
+.cell-container {
+  position: relative;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: table-cell;
+  /* height: 100%; */
+}
+
+.cell-container-header {
+ cursor: pointer; 
+}
+
+.cell-container::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
+.xavier-sample-row-btn {
+  /* margin-bottom: 10px; */
+  position: sticky;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  background-color:#f1f1f1;
+  border: none;
+  cursor: pointer;
+}
