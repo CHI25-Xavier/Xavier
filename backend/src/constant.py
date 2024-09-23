@@ -107,15 +107,13 @@ class SptMethodName:
 
 
 PROMPT_SPLITTER = "\n--------------------\n\n"
-GPT_35_TURBO = "gpt-35-turbo"
-GPT_4_TURBO = "gpt-4-turbo"
-GPT_4O = "gpt-4o"
 LLAMA3_70B_8192 ="llama3-70b-8192"
 LLAMA31_70B_VERSATILE = "llama-3.1-70b-versatile"
-OPENAI = "openai"
-AZURE = "azure"
-LOCAL = "local"
-GROQ = "groq"
+RUN_HOST = "0.0.0.0"
+RUN_PORT = 1022
+MAX_OUTPUT_TOKENS = 70
+TEMPERATURE = 0.01
+
 COMPLETION_ITEM_KIND = {
   AST_POS.DF_VAR: "df",
   AST_POS.LIST_DF_VARS: "df",

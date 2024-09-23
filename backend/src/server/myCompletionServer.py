@@ -4,7 +4,7 @@ from flask_cors import CORS
 from typeguard import typechecked
 
 from src.server.myAIClient import myAIClient
-from src.constant import OPENAI, AZURE, LOCAL, GROQ, AST_POS, SPECIAL_CASE
+from src.constant import AST_POS
 from src.datatypes import List, Dict, Optional, CacheInfo
 
 @typechecked
@@ -13,7 +13,7 @@ class myCompletionServer:
 		self.caseno: Optional[str] = None
 		self.app = Flask(__name__)
 		CORS(self.app)
-		self.client = myAIClient(model=model, platform=GROQ)
+		self.client = myAIClient(model)
 		# initialize completion cache
 		cacheInit: CacheInfo = {
 			"previousTokens": [],
@@ -24,10 +24,10 @@ class myCompletionServer:
 		for m in astPosMember:
 			self.completionCache[getattr(AST_POS, m)] = copy.deepcopy(cacheInit)
 
-	def run(self) -> None:
+	def run(self, host: str, port: int) -> None:
 		self.app.run(
-			host='0.0.0.0',
-			port=1022,
+			host=host,
+			port=port,
 			debug=True
 		)
 

@@ -5,7 +5,7 @@ from flask.json import jsonify
 from src.server import apiFunc as apiX
 from src.server.myCompletionServer import myCompletionServer
 from src.debugger import debugger
-from src.constant import LLAMA3_70B_8192, LLAMA31_70B_VERSATILE, GPT_35_TURBO, GPT_4_TURBO, GPT_4O
+from src.constant import LLAMA3_70B_8192, LLAMA31_70B_VERSATILE, RUN_HOST, RUN_PORT
 
 SERVER = myCompletionServer(LLAMA3_70B_8192)
 
@@ -37,4 +37,4 @@ def complete():
 	return jsonify(resJson)
 
 if __name__ == '__main__':
-	SERVER.run()
+	SERVER.run(RUN_HOST, RUN_PORT)

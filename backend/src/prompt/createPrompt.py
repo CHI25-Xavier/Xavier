@@ -1,10 +1,7 @@
-import json
-import copy
 from typeguard import typechecked
 from typing import Union
 
 from . import dataframeInfo as dfInfoX
-from . import docs as docsX
 from . import share as shareX
 from .. import datatypes as dtX
 from .. import utils as utilsX
@@ -15,7 +12,6 @@ from src.server.myAIClient import myAIClient
 from src.datatypes import List, Tuple, Optional, PartialCodeInfo, CompletionItem, JupyterlabToken, TableLevelInfoT
 from src.constant import AST_POS, DF_INFO_TYPE, PROMPT_SPLITTER, COMPLETE_WHAT, SptMethodName
 from src.debugger import debugger
-from src.docCtrl import genCtrlDocumentation, genExpDocumentation
 
 @typechecked
 def dfHasColumn(allDfInfo, df_name: Optional[str] = None, col_name: Optional[str] = None) -> bool:
@@ -129,24 +125,9 @@ def parseGPTOutputByAstPos(astPosEnum: int, lastLineCode: str, gpt_output: str) 
   # else:
   return parseReCodeObj(gpt_output, lastLineCode), None
 
-@typechecked
-def getDocs(method_name: str) -> str:
-  p: str = ""
-  api_docs = docsX.getDocsByMethodName(method_name)
-  if not api_docs:
-    return p
-  p = f"""The **api docs** of `{method_name}` is:\n{api_docs}"""
-  return p
-
 # SC = special case
 @typechecked
 def gptCompleteForSC(pCode: str, method_name: str = "", need_obj: int = -1, tableLvInfo: Optional[TableLevelInfoT] = None, columnLvInfo = None, rowLvInfo = None) -> Optional[str]:
-  # 2. feed prompt to GPT
-  # get api docs
-  api_docs = docsX.getDocsByMethodName(method_name)
-  if api_docs is None:
-    debugger.warning(f"[gptCompleteForSC] not supported method name: {method_name}")
-    return None
   # get codeInfo
   codeInfo = shareX.getCodeInfo(pCode)
   # get dfInfo
@@ -162,74 +143,12 @@ def gptCompleteForSC(pCode: str, method_name: str = "", need_obj: int = -1, tabl
     dfInfoPrompt += f"""\n{dfInfoX.multiRowLvInfoPrompt(rowLvInfo)}"""
   
   # generate prompt
-  # prompt = api_docs if api_docs == "" else api_docs + PROMPT_SPLITTER
   prompt = codeInfo + PROMPT_SPLITTER
   prompt += dfInfoPrompt + PROMPT_SPLITTER
   prompt += getFmtCtrlByAstPos(need_obj, method_name)
 
   return prompt
 
-
-# @typechecked
-# def gptComplete(client: myAIClient, token: JupyterlabToken, allDfInfo, pCode: str, arg: PartialCodeInfo, allDataContext) -> List[CompletionItem]:
-#   # 1. get necessary arguments
-#   # result array
-#   token_list: List[CompletionItem] = []
-#   lastLineCode = pCode.split("\n")[-1]
-#   # get mandatory params
-#   method_name = arg["method_name"]
-#   need_obj = arg["need_obj"]
-#   df_info_type = arg["df_info_type"]
-#   if (not method_name) or (need_obj < 0) or (not df_info_type):
-#     debugger.warning(f"[gptComplete] method_name {method_name} or need_obj {need_obj} or df_info_type {df_info_type} not specified")
-#     return token_list
-#   # get optional paramName
-#   df_name = arg["df_name"]
-#   col_name = arg["col_name"]
-#   cell_value = arg["cell_value"]
-#   col_idx_list = arg["col_idx_list"]
-
-#   # 2. feed prompt to GPT
-#   # get api docs
-#   api_docs = docsX.getDocsByMethodName(method_name)
-#   if not api_docs:
-#     debugger.warning(f"[gptComplete] not supported method name: {method_name}")
-#     return token_list
-#   # get codeInfo
-#   codeInfo = shareX.getCodeInfo(pCode)
-#   # get dfInfo
-#   dfInfoPrompt: str = ""
-#   if len(allDataContext["tableChannel"]) == 0 and len(allDataContext["columnChannel"]) == 0:
-#     dfInfoPrompt = getDfInfoByType(allDfInfo, df_info_type, df_name, col_name)
-#   else:
-#     dfInfoPrompt = getDfInfoByUserSelect(allDfInfo, allDataContext)
-#   if not dfInfoPrompt:
-#     debugger.warning(f"[gptComplete] not supported df_info_type: {df_info_type}")
-#     return token_list
-#   # transform enum to string
-#   completeWhatStr = COMPLETE_WHAT.get(need_obj, "")
-#   if not completeWhatStr:
-#     debugger.warning(f"[gptComplete] not supported need_obj: {need_obj}")
-#     return token_list
-  
-#   # generate prompt
-#   prompt = api_docs + PROMPT_SPLITTER
-#   prompt += codeInfo + PROMPT_SPLITTER
-#   prompt += dfInfoPrompt + PROMPT_SPLITTER
-#   prompt += f"Specifically, you need to complete the {completeWhatStr}. "
-#   prompt += getFmtCtrlByAstPos(need_obj, method_name)
-
-#   resp = client.sendPrompt(prompt, False)
-#   pres, explanations = parseGPTOutputByAstPos(need_obj, lastLineCode, resp)
-#   for i, co in enumerate(pres):
-#     token_list.append({
-#       "value": co,
-#       "offset": token["offset"],
-#       "type": getCompletionItemTypeFromAstPos(need_obj),
-#       "explanation": genExpDocumentation(explanations[i]) if explanations else genCtrlDocumentation(df_info_type, co, allDfInfo, df_name, col_name, cell_value, col_idx_list)
-#     })
-
-#   return token_list
 
 @typechecked
 def gptComplete_Exe(client: myAIClient, token: JupyterlabToken, prompt: str, pCode: str, need_obj: int) -> List[CompletionItem]:
