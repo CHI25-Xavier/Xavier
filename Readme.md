@@ -5,10 +5,17 @@
 
 ### Environment for reference
 
+#### Hardware
+
 - Processor: 12th Gen Intel(R) Core(TM) i7-12700H   2.30 GHz
 - RAM: 16 GB
 - Operator System: Windows 11 64-bit, based on x64 processor
+
+#### Software
+
 - Conda version: 23.11.0
+- Jupyter Lab version: >=4.0.0 (e.g. 4.2.5)
+- Pandas: >=2.2 (e.g. 2.2.3)
 
 
 ### How to run the backend
@@ -49,7 +56,7 @@ cd frontend
 
 # Install package in development mode. You will see "xavier" if you run "pip list" command.
 pip install -e .
-# Install jupyterlab and pandas. pip will install the latest version of jupyterlab (>4) and pandas (>2.2). You can run `jupyter --version` or `pip list` to check the version.
+# Install jupyterlab and pandas. pip will install the latest version of jupyterlab (>=4.0.0) and pandas (>=2.2). You can run `jupyter --version` or `pip list` to check the version.
 pip install jupyterlab pandas
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite

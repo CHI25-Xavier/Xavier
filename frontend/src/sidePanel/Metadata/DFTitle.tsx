@@ -1,5 +1,5 @@
 import React from "react";
-import { AddContextIcon } from "../Icons/AddContextIcon";
+import { AddContextIcon } from "../../assets/AddContextIcon";
 import { FOnTitleClick, FOnUpdateDCIconClick } from "../interfaceFunc";
 
 

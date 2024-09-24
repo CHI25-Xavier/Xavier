@@ -272,31 +272,6 @@ export class NBExe {
         }
     }
 
-  //   public async getVariableNamesInPythonStr(codeString: string): Promise<string[]> {
-
-  //       let pandasWasImported = await this.checkIfPandasInModules()
-
-  //       if (pandasWasImported) {
-  //           const formattedCode = codeString.replace(/"/g, '\\"');
-  //           const code = `digautoprofiler.getVariableNamesInPythonStr("""${formattedCode}""")`;
-  //           try {
-  //               const res = await this.executePythonAP(code)
-  //               let content = res["content"].join("")
-  //               content = content.replace(/'/g, '"') // replace single quotes
-  //               content = content.replace('{', '[')
-  //               content = content.replace('}', ']')
-
-  //               const vars = JSON.parse(content)
-
-  //               return vars
-
-  //           } catch (error) {
-  //               return []
-  //           }
-  //       }
-  //       return []
-  //   }
-
     private async getColumns(dfName: string): Promise<{ columns: IColInfoAll, columnNameList: string[] }> {
         const code = `idg_xavier.getColumns(${dfName})`
         try {

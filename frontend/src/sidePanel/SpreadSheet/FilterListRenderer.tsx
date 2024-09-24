@@ -4,7 +4,7 @@ import { IColMode, IDfCondAll, IDFInfoAll, IRowSampleCache, IValueCount, IValueC
 import * as constant from "../../constant";
 import * as utils from "../../utils";
 import { ReactStore } from "../Wrapper/SidePanelReactStore";
-import { MultiSelectIcon } from "../Icons/MultiSelectIcon";
+import { MultiSelectIcon } from "../../assets/MultiSelectIcon";
 import _ from "lodash";
 import { FgetRowSampleOfOneDf } from "../interfaceFunc";
 import { CateItem } from "../Metadata/CateItem";

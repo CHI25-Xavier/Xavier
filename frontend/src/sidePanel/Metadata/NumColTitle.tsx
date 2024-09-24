@@ -3,7 +3,6 @@ import _ from "lodash";
 
 // import { ViewMode } from "../../constant";
 // import { MultiSelectIcon } from "../Icons/MultiSelectIcon";
-// import { AddContextIcon } from "../Icons/AddContextIcon";
 import { IHistogramBin } from "../interface";
 import * as utils from "../../utils";
 
@@ -59,8 +58,7 @@ export class NumColTitle extends React.Component<IProps, IState> {
     const maxValueStr = this.props.maxValue === null ? "NaN" : typeof this.props.maxValue === "string" ? this.props.maxValue : utils.formatNumber(this.props.maxValue);
     return (
       <div className="xavier-mct-wrapper">
-        {/* <AddContextIcon handleIconClick={(e) => this.props.onUpdateDCIconClick(e, "column", "toggle", {dfName: this.props.dfName, colName: this.props.colName})} 
-                        sign={this.props.isFold ? "+" : "-"} />
+        {/*
         {isShowSelectIcon ? (
           <MultiSelectIcon  status={this.props.isColSelect ? "full" : "empty"}
                             handleIconClick={(e) => this.props.onColSelectIconClick(e, this.props.dfName, this.props.colName) } />

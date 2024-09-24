@@ -43,11 +43,9 @@ export class MetadataView extends React.Component<IProps, IState> {
     this.onTitleClick = this.onTitleClick.bind(this);
     this.onUpdateDCIconClick = this.onUpdateDCIconClick.bind(this);
     // this.onFilterValueIconClick = this.onFilterValueIconClick.bind(this);
-    this.onDummyColSelectIconClick = this.onDummyColSelectIconClick.bind(this);
     this.dfFoldToggle = this.dfFoldToggle.bind(this);
     // this.columnFoldToggle = this.columnFoldToggle.bind(this);
     this.renderDfList = this.renderDfList.bind(this);
-    // this.renderDummyColTitle = this.renderDummyColTitle.bind(this);
     this.onSampleBtnClick = this.onSampleBtnClick.bind(this);
   }
 
@@ -140,18 +138,6 @@ export class MetadataView extends React.Component<IProps, IState> {
   //     _allColMode: newAllColMode
   //   });
   // }
-
-  onDummyColSelectIconClick(e: React.MouseEvent, dfName: string) {
-    e.stopPropagation();
-    const newAllDfColSelect = {...this.context.allDfColSelect};
-    const allSelect = Object.values(newAllDfColSelect[dfName]).every(v => v);
-    const newStatus = allSelect ? false : true;
-    for (const colName in newAllDfColSelect[dfName]) {
-      newAllDfColSelect[dfName][colName] = newStatus;
-    }
-    this.context.setAllDfColSelect(newAllDfColSelect);
-    console.log('1: newAllDfColSelect:',this.context.allDfColSelect);
-  }
 
   onSampleBtnClick(dfName: string) {
     const newAllDfStyle = _.cloneDeep<IDFStyleAll>(this.realAllDfStyle);
@@ -297,26 +283,6 @@ export class MetadataView extends React.Component<IProps, IState> {
       this.context.setAllDfCateColItemSearch({});
     }
   }
-
-  // renderDummyColTitle(dfName: string) {
-  //   const allSelect = Object.values(this.context.allDfColSelect[dfName]).every(v => v);
-
-  //   const allNotSelect = Object.values(this.context.allDfColSelect[dfName]).every(v => !v);
-  //   return (
-  //     <div className="xavier-mv-col">
-  //       <div className="xavier-mct-wrapper">
-  //         {/* <div className="xavier-mdt-icon-wrapper xavier-mdt-icon-placeholder"></div> */}
-  //         <MultiSelectIcon  status={allSelect ? "full" : (allNotSelect ? "empty" : "half")}
-  //                           handleIconClick={(e) => this.onDummyColSelectIconClick(e, dfName) } />
-  //         <div className="xavier-mct-name-wrapper" style={{width: "calc(100% - 2 * var(--xavier-icon-width))"}}>
-  //           <div className="xavier-mct-name">
-  //             Select all columns
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
   render() {
     return (

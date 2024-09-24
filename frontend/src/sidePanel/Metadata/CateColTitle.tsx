@@ -1,11 +1,7 @@
 import React from "react";
 
-// import { CateType } from "../../assets/SvgCollection";
-// import { CATE } from "../../constant";
-// import { AddContextIcon } from "../Icons/AddContextIcon";
 // import { MultiSelectIcon } from "../Icons/MultiSelectIcon";
 // import { ViewMode } from "../../constant";
-// import { FilterIcon } from "../Icons/FilterIcon";
 
 interface IProps {
   dfName: string;
@@ -41,18 +37,13 @@ export class CateColTitle extends React.Component<IProps, IState> {
     //   <MultiSelectIcon  status={this.props.isColSelect ? "full" : "empty"}
     //                     handleIconClick={(e) => this.props.onColSelectIconClick(e, dfName, colName) } />
     // ) : null;
-    // const filterValueIconDiv = this.props.isFold ? null : (
-    //   <FilterIcon status={this.props.isFilterValue}
-    //                     handleIconClick={(e) => this.props.onFilterValueIconClick(e, dfName, colName)} />
-    // );
     // let iconWidthUnit = 1;
     // iconWidthUnit += multiSelectIconDiv === null ? 0 : 1;
     // iconWidthUnit += filterValueIconDiv === null ? 0 : 1;
 
     return (
       <div className="xavier-mct-wrapper">
-        {/* <AddContextIcon handleIconClick={(e) => this.props.onUpdateDCIconClick(e, "column", "toggle", {dfName, colName})} 
-                        sign={this.props.isFold ? "+" : "-"} />
+        {/*
         {multiSelectIconDiv}
         {filterValueIconDiv} */}
         {/* <div  className="xavier-mct-name-wrapper"
@@ -67,9 +58,6 @@ export class CateColTitle extends React.Component<IProps, IState> {
                       width: `${100 * this.props.cardinality / this.props.numRows}%`,
                       minWidth: `${this.props.cardinality === 0 ? 0 : this.realBasicPx}px`,
                     }}></div>
-            {/* ) : (
-              <div style={{ width: `${100 * cardinality / props.num_rows}%`, height: '100%', background: CATE.BAR_BG_COLOR }}></div>
-            )} */}
             <div className="xavier-mct-histogram-text">|{this.props.cardinality}|</div>
           </div>
         </div>

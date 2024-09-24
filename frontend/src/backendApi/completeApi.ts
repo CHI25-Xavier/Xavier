@@ -1,7 +1,7 @@
 import { CodeEditor } from '@jupyterlab/codeeditor';
 
 import {timeout, handleFetch, HEADER_COMMON, API_URL} from "./apiUtils";
-import { _debugVarInfo, _commonDict, CompResult, AnalyzeCodeResp } from "../interfaces";
+import { _debugVarInfo, CompResult, AnalyzeCodeResp } from "../interfaces";
 import { IColLvInfo, IRowLvInfo, ITableLvInfo } from '../sidePanel/interface';
 
 //previousCode2D, token, nbApi.dfList, nbApi.allDfInfo

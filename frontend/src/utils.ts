@@ -2,7 +2,6 @@ import { CellList, INotebookTracker } from '@jupyterlab/notebook';
 import { CodeEditor } from '@jupyterlab/codeeditor';
 import { IKernelConnection } from '@jupyterlab/services/lib/kernel/kernel';
 import { customAlphabet } from "nanoid";
-// import { LabIcon } from '@jupyterlab/ui-components';
 
 import { CompletionHandler } from '@jupyterlab/completer';
 import { _commonDict, _debugVarInfo, _myCompletionItem } from "./interfaces";
@@ -53,18 +52,6 @@ export function tableAddPreviewColumn(header: TCellValue[], table: TCellValue[][
       row.splice(idx + 1, 0, piOfDfName[colName].sample[numRow]);
     });
   }
-} 
-
-// BR: bounding rectangle
-export function getTableBRShape<T>(table: T[][]): [number, number] {
-  let rowSize = table.length;
-  let columnSize = 0;
-  for (let i = 0; i < rowSize; i++) {
-    if (columnSize < table[i].length) {
-      columnSize = table[i].length;
-    }
-  }
-  return [rowSize, columnSize];
 }
 
 function _getCellTextLines(cells: CellList, i: number) {
@@ -82,30 +69,6 @@ function _getCellTextLineBeforeCursor(sListComplete: string[], cursorPos: CodeEd
   const sListPartial = sListComplete.slice(0, cursorPos.line);
   sListPartial.push(sListComplete[cursorPos.line].slice(0, cursorPos.column));
   return sListPartial;
-}
-
-export function getKernel(notebooks: INotebookTracker) {
-  const currentNotebook = notebooks.currentWidget;
-  let session = null;
-  let kernel = null;
-  if (currentNotebook) {
-    session = currentNotebook.sessionContext.session;
-  } else {
-    console.warn("[getKernel] No notebook available");
-    return null;
-  }
-  if (session) {
-    kernel = session.kernel;
-  } else {
-    console.warn("[getKernel]: No session available");
-    return null;
-  }
-  if (kernel) {
-    return kernel;
-  } else {
-    console.warn("[getKernel]: No kernel available");
-    return null;
-  }
 }
 
 export async function getActiveDataFrames(kernel: IKernelConnection) {
@@ -174,11 +137,6 @@ export function deDuplicateCompletionItems(items: _myCompletionItem[]): Completi
     return {
       label: item.value,
       type: item.type,
-      // documentation: (item.explanation) ? item.explanation : "1", // @TODO: add explanation to completion item
-      // icon: new LabIcon({
-      //   name: "svgstr",
-      //   svgstr: SVGSTR,
-      // })
     };
   });
 }
@@ -317,16 +275,6 @@ function getDecimalPlaces(num: number): number {
   }
   return 0;
 }
-
-export function timeMilliSecond(t: number): number { //must be 13-bit.
-  while(t < 1000000000000) { //10^12: 2001-9-9 9:46:40
-    t *= 10;
-  }
-  while(t >= 10000000000000) { //10^13: 2286-11-21 1:46:40
-    t /= 10;
-  }
-  return t;
-};
 
 export function removeQuotes(s: string): string {
   if (s.startsWith("'''") && s.endsWith("'''")) {

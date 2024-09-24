@@ -40,7 +40,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     const ccp = new XavierCompleterProvider(notebooks, dataModel, contextProvider, kernelProvider);
     completionManager.registerProvider(ccp);
 
-    console.log('@xavier02: JupyterLab custom completer extension is activated!', ccp, app, completionManager, notebooks);
+    console.log('@xavier: JupyterLab custom completer extension is activated!', ccp, app, completionManager, notebooks);
   }
 };
 

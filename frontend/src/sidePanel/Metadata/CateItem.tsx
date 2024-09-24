@@ -1,7 +1,7 @@
 import React from "react";
 import { IValueCount } from "../interface";
 import { FOnCateSelectIconClick } from "../interfaceFunc";
-import { MultiSelectIcon } from "../Icons/MultiSelectIcon";
+import { MultiSelectIcon } from "../../assets/MultiSelectIcon";
 
 interface IProps {
   dfName: string;
