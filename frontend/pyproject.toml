@@ -4,7 +4,6 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xavier"
-readme = "README.md"
 license = {text = "BSD-3-Clause License"}
 requires-python = ">=3.8"
 classifiers = [

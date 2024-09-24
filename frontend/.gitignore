@@ -123,6 +123,7 @@ dmypy.json
 
 # Yarn cache
 .yarn/
+yarn.lock
 
 # My folder
 others/

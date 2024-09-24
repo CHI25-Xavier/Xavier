@@ -1,37 +1,13 @@
 from typeguard import typechecked
 from typing import Union, List, Optional
 
-from src.datatypes import NumericalStatsT, CategoricalStatsT, ColumnInfo, TopKItemT, BinInfo, _ColLevelInfoT
 from .. import datatypes as dtX
-from src.debugger import debugger
 from ..constant import PROMPT_MARKER
 from .. import utils as utilsX
 
 @typechecked
 def dataInfoPreamble() -> str:
   return f"""Here is {PROMPT_MARKER.DATA_CONTEXT} in this code script:"""
-
-@typechecked
-def otherDataInfoPreamble() -> str:
-  return f"""Here is some **additional information about the dataframe(s)** in this code script, only for reference:"""
-
-@typechecked
-def multiTableInfo(dfInfo) -> str:
-  dfNames = list(dfInfo.keys())
-  prompt = ""
-  for dfName in dfNames:
-    dInfo = dfInfo[dfName]
-    num_rows = dInfo["num_rows"]
-    num_cols = dInfo["num_cols"]
-    prompt += f"""{nameShape2Str(dfName, num_rows, num_cols)}\n"""
-    prompt += f"""{colNameType2Str(dInfo["columns"])}\n"""
-    prompt += "\n"
-  return prompt
-
-@typechecked
-def nameShape2Str(dfName: str, num_rows: int, num_cols: int) -> str:
-  prompt = f"""DataFrame: {dfName} ({num_rows} rows x {num_cols} columns)"""
-  return prompt
 
 @typechecked
 def multiTableLvInfoPrompt(tableLvInfo: dtX.TableLevelInfoT) -> str:
@@ -78,7 +54,7 @@ def multiColLvInfoPrompt(colLvInfo: dtX.ColLevelInfoT, tableLvInfo: Optional[dtX
   return p
 
 @typechecked
-def colLevelInfoPrompt(indent: str, colName: str, citem: _ColLevelInfoT, tLvInfo: Union[None, dtX._TableLevelInfoT]) -> str:
+def colLevelInfoPrompt(indent: str, colName: str, citem: dtX._ColLevelInfoT, tLvInfo: Union[None, dtX._TableLevelInfoT]) -> str:
   prompt = f"""{indent}Column: {colName}"""
   if citem["dtype"] is not None:
     prompt += f""" (Data type: {citem["dtype"]})\n"""
@@ -136,128 +112,4 @@ def getTableBodyMDFmt(colNames: List[str], rows: List[dtX.DFRowT]) -> str:
   prompt: str = ""
   for row in rows:
     prompt += f"""| {" | ".join([str(row[col]) for col in colNames])} |\n"""
-  return prompt
-
-@typechecked
-def colNameType2Str(colInfo: List[ColumnInfo]) -> str:
-  prompt = f"""Column_Name\tDtype\tNull_count\n"""
-  for col in colInfo:
-    prompt += f"""{col["colName"]}\t{col["dtype"]}\t{col['nullCount']}\n"""
-  return prompt
-
-@typechecked
-def colNameTypeNull2Str(colName: str, dtype: str, nullCount: int, indent: str, dfName: Optional[str] = None) -> str:
-  prompt = f"- Column {colName}"
-  if dfName is not None:
-    prompt += f" in DataFrame {dfName}\n"
-  else:
-    prompt += "\n"
-  prompt += f"{indent}dtype: {dtype}\n"
-  prompt += f"{indent}null_count: {nullCount}\n"
-  return prompt
-
-
-@typechecked
-def numericStats2Str(numerical_stats: NumericalStatsT, indent: str) -> str:
-  prompt = f"{indent}25%: {numerical_stats['q25']}\n"
-  prompt += f"{indent}50%: {numerical_stats['q50']}\n"
-  prompt += f"{indent}75%: {numerical_stats['q75']}\n"
-  prompt += f"{indent}count: {numerical_stats['count']}\n"
-  prompt += f"{indent}max: {numerical_stats['max']}\n"
-  prompt += f"{indent}mean: {numerical_stats['mean']}\n"
-  prompt += f"{indent}min: {numerical_stats['min']}\n"
-  prompt += f"{indent}std: {numerical_stats['std']}\n"
-  prompt += f"{indent}There are {numerical_stats['n_negative']} negative values, {numerical_stats['n_positive']} positive values and {numerical_stats['n_zero']} zero values.\n"
-  if numerical_stats["sortedness"] == "ascending":
-    prompt += f"{indent}The values are sorted in ascending order.\n"
-  elif numerical_stats["sortedness"] == "descending":
-    prompt += f"{indent}The values are sorted in descending order.\n"
-  else:
-    prompt += f"{indent}The values are not sorted.\n"
-  return prompt
-
-@typechecked
-def cateStats2Str(other_stats: CategoricalStatsT, indent: str) -> str:
-  prompt = f"{indent}string max length: {other_stats['maxLength']}\n"
-  prompt += f"{indent}string min length: {other_stats['minLength']}\n"
-  prompt += f"{indent}string mean length: {other_stats['meanLength']}\n"
-  prompt += f"{indent}There are {other_stats['cardinality']} unique values.\n"
-  return prompt
-
-@typechecked
-def topK2Str(topK: List[TopKItemT], indent: str) -> str:
-  prompt = f"{indent}Top-10 frequent data values in this column:\n"
-  prompt += f"{indent}\tValue\tCount\n"
-  for item in topK:
-    prompt += f"""{indent}\t{item["value"]}\t{item["count"]}\n"""
-  return prompt
-
-@typechecked
-def bin2Str(bin_stats: List[BinInfo], indent: str) -> str:
-  prompt = f"{indent}Binned distribution:\n"
-  for bin_info in bin_stats:
-    leftSign = "[" if bin_info["closed_left"] else "("
-    rightSign = "]" if bin_info["closed_right"] else ")"
-    prompt += f"""{indent}\t{leftSign}{bin_info["left"]}, {bin_info["right"]}{rightSign}\t{bin_info["count"]}\n"""
-  return prompt
-
-@typechecked
-def sinTableInfo(dfInfo) -> str:
-  dfNames = list(dfInfo.keys())
-  if len(dfNames) != 1:
-    raise ValueError("[sinTableInfo] not support multiple dataframes")
-
-  dfName = dfNames[0]
-  dInfo = dfInfo[dfName]
-  num_rows = dInfo["num_rows"]
-  num_cols = dInfo["num_cols"]
-  prompt = f"""{nameShape2Str(dfName, num_rows, num_cols)}
-Statistical information of columns:\n"""
-  for colobj in dInfo["columns"]:
-    prompt += colNameTypeNull2Str(colobj["colName"], colobj["dtype"], colobj["nullCount"], "\t")
-    if colobj["statsType"] == "numeric":
-      numerical_stats: NumericalStatsT = colobj["numStats"]
-      prompt += numericStats2Str(numerical_stats, "\t")
-    elif colobj["statsType"] == "categorical":
-      other_stats: CategoricalStatsT = colobj["cateStats"]
-      prompt += cateStats2Str(other_stats, "\t")
-    else:
-      debugger.warning(f"[sinTableInfo] unknown statsType of {colobj['colName']}: {colobj['statsType']}")
-  return prompt
-
-@typechecked
-def sinColInfo(allDfInfo, dfName: str, colName: str) -> str:
-  dInfo = allDfInfo[dfName]
-  idx: int = -1
-  for i, colobj in enumerate(dInfo["columns"]):
-    if colobj["colName"] == colName:
-      idx = i
-      break
-  if idx < 0:
-    raise ValueError(f"[sinColInfo] column {colName} not found in dataframe {dfName}")
-  
-  ci = dInfo["columns"][idx]
-  prompt = f"{dataInfoPreamble()}\n"
-  # debugger.info(f"[sinColInfo] column {colName}: {ci}")
-  prompt += colNameTypeNull2Str(colName, ci['dtype'], ci['nullCount'], '\t', dfName) + "\n"
-  if ci["statsType"] == "numeric":
-    numerical_stats: NumericalStatsT = ci["numStats"]
-    prompt += numericStats2Str(numerical_stats, "\t")
-    prompt += bin2Str(ci["bins"], "\t")
-  elif ci["statsType"] == "categorical":
-    other_stats: CategoricalStatsT = ci["cateStats"]
-    topK: List[TopKItemT] = ci["topK"]
-    prompt += cateStats2Str(other_stats, "\t")
-    prompt += topK2Str(topK, "\t")
-  # elif ci["statsType"] == "boolean":
-
-  
-  # Add other information here
-  prompt += f"""\n{otherDataInfoPreamble()}\n"""
-  dfNames = list(allDfInfo.keys())
-  for dn in dfNames:
-    di = allDfInfo[dn]
-    prompt += f"""{nameShape2Str(dn, di["num_rows"], di["num_cols"])}\n"""
-    prompt += f"""{colNameType2Str(di["columns"])}\n"""
-    prompt += "\n"
   return prompt

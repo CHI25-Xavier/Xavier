@@ -30,17 +30,6 @@ class CompletionItem(TypedDict):
     type: str
     explanation: Optional[str]
 
-class CacheInfo(TypedDict):
-    previousTokens: List[TokenInfo]
-    completionList: List[CompletionItem]
-
-class ActiveDataFrameInfo(TypedDict):
-    evaluateName: str
-    name: str
-    type: str
-    value: str
-    variablesReference: int
-
 # Middle layer
 class _dfInfo_listDf(TypedDict):
     shape: str
@@ -117,15 +106,6 @@ class ColumnInfo(TypedDict):
     topK: Optional[List[TopKItemT]]
     tempHist: Optional[List[TempHistItemT]]
     tempInterval: Union[None, TempIntervalT]
-
-# Middle layer
-class _DataFrameInfo(TypedDict):
-    num_rows: int
-    num_cols: int
-    columns: List[ColumnInfo]
-
-# Suitable for all dataframes
-AllDataFrameInfoT = Dict[str, _DataFrameInfo]
 
 class JupyterlabToken(TypedDict):
     value: str

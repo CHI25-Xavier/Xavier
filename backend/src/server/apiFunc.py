@@ -46,14 +46,6 @@ def try_complete(server: myCompletionServer, client: myAIClient, previousCode2D:
   special_case = analyze_resp["special_case"]
   is_trivial = analyze_resp["is_trivial"]
 
-  # cache = server.completionCache.get(need_obj)
-  # if cache:
-  #   # 1. use cache if possible
-  #   m = cacheCodeMatch(pTokens, cache["previousTokens"])
-  #   if m and len(cache["completionList"]):
-  #     cacheUsed = True
-  #     token_list = copy.deepcopy(cache["completionList"])
-
   if not cacheUsed:
 #     prompt = "Suppose you are a code autocompletion tool, and a user has typed some Python code below. Please complete the code.\n\n"
 #     prompt += shareX.wrapPythonCode(previousCode) + "\n\n"
@@ -80,14 +72,6 @@ def try_complete(server: myCompletionServer, client: myAIClient, previousCode2D:
       if prompt is not None:
         token_list = cpX.gptComplete_Exe(client, token, prompt, previousCode, analyze_resp["need_obj"])
 
-      
-
-    # update cache, remember to save the token_list without a token value as the prefix
-    if analyze_resp["need_obj"] in server.completionCache:
-      server.completionCache[analyze_resp["need_obj"]] = {
-        "previousTokens": pTokens,
-        "completionList": copy.deepcopy(token_list)
-      }
 
   # Add the token value as the prefix to the completion items
   if utilsX.needAddPrefix(special_case, is_trivial, need_obj, analyze_resp["method_name"], analyze_resp["cell_value"]):

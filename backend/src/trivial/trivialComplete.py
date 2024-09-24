@@ -2,7 +2,7 @@ from typeguard import typechecked
 
 from src.utils import getCompletionItemTypeFromAstPos, removeQuotes, findAllVarLastOccur, sortDfByOccur, getColInfoByName, formatNumber
 from src.constant import AST_POS, SptMethodName
-from src.datatypes import List, Tuple, Union, PartialCodeInfo, CompletionItem, JupyterlabToken, AllDataFrameInfoT, NumericalStatsT
+from src.datatypes import List, Tuple, Union, PartialCodeInfo, CompletionItem, JupyterlabToken, NumericalStatsT
 from src.docCtrl import genCtrlDocumentation
 from src.debugger import debugger
 

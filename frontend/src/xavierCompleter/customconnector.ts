@@ -518,8 +518,10 @@ namespace Private {
   export function updatePosOfTempCompleter(editor: CodeEditor.IEditor, tempCompleter: Completer) {
     const cursorPos = editor.getCursorPosition();
     const cor = editor.getCoordinateForPosition(cursorPos);
-    tempCompleter.node.style.top = cor.top + editor.lineHeight + "px";
-    tempCompleter.node.style.left = cor.left + "px";
+    if (cor) {
+      tempCompleter.node.style.top = cor.top + editor.lineHeight + "px";
+      tempCompleter.node.style.left = cor.left + "px";
+    }
     tempCompleter.node.classList.add("jp-HoverBox")
     return tempCompleter;
   }
@@ -555,8 +557,10 @@ namespace Private {
     (tempCompleter as any).onUpdateRequest("update-request") // @TODO
     document.body.appendChild(tempCompleter.node);
     tempCompleter.node.style.position = "absolute";
-    tempCompleter.node.style.top = cor.top + editor.lineHeight + "px";
-    tempCompleter.node.style.left = cor.left + "px";
+    if (cor) {
+      tempCompleter.node.style.top = cor.top + editor.lineHeight + "px";
+      tempCompleter.node.style.left = cor.left + "px";
+    }
     tempCompleter.node.style.height = "240px";
     tempCompleter.node.style.width = "200px";
     // tempCompleter.show();

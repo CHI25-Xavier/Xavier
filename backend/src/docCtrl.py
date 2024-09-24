@@ -2,7 +2,7 @@ import json
 from typeguard import typechecked
 
 from src.constant import DF_INFO_TYPE
-from src.datatypes import List, Tuple, Dict, Optional, Union, AllDataFrameInfoT, AllDataFrameStyleT, DocumentationT, ValueShowT, ColumnStyle
+from src.datatypes import List, Tuple, Dict, Optional, Union, AllDataFrameStyleT, DocumentationT, ValueShowT, ColumnStyle
 from src.debugger import debugger
 from src.utils import fullWordMatch
 
