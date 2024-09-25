@@ -1,11 +1,3 @@
-.xavier-detail-view {
-  display: block;
-  width: 100%;
-  height: calc(40% - 2px);
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-
 .xavier-ss-wrapper {
   display: block;
   position: relative;
@@ -16,21 +8,6 @@
 
 .xavier-dvt-name.xavier-st-text {
   width: 100px;
-}
-
-.xavier-dvt-cur-df {
-  display: inline-block;
-  width: calc(100% - 100px - var(--xavier-icon-width) - 10px); /* 10px means the margin of the xavier-sti-wrapper */
-  height: 100%;
-  text-align: right;
-  vertical-align: top;
-  color: #555;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 20px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .xavier-cc-float-right {

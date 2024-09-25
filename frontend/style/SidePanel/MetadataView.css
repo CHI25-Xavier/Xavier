@@ -65,11 +65,6 @@
   white-space: nowrap;
 }
 
-.xavier-mv-col-list {
-  display: block;
-  width: 100%;
-}
-
 .xavier-mv-col {
   display: block;
   width: 100%;
@@ -87,10 +82,6 @@
   width: calc(100% - 10px);
   height: var(--xavier-cate-item-height);
   padding-left: 10px;
-}
-
-.xavier-mv-num-chart-label {
-  font-size: 12px;
 }
 
 .xavier-mct-name.xavier-mv-cate-value {
@@ -121,10 +112,6 @@
   font-size: var(--xavier-value-font-size);
 }
 
-/* .xavier-mv-search-input {
-  width: 30%;
-} */
-
 .xavier-mv-num-search-input {
   width: calc(50% - 5px - var(--xavier-scrollbar-width)); 
 }
@@ -147,15 +134,6 @@
   width: 180px;
   /* width: 100%; */
   z-index: 1;
-}
-
-
-.xavier-mv-num-list {
-  display: block;
-  width: calc(100% - var(--xavier-scrollbar-width)); /* consider the scrollbar width */
-  max-height: 500px;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .xavier-mv-cate-list {
@@ -240,28 +218,6 @@
 .xavier-mct-histogram-text.xavier-mv-cate-str {
   font-size: var(--xavier-value-font-size);
 }
-
-.xavier-fci-wrapper {
-  display: inline-block;
-  width: var(--xavier-icon-width);
-  height: 100%;
-  text-align: center;
-  vertical-align: top;
-  line-height: calc(100% + 15px); /* Maybe hard code */
-  cursor: pointer;
-}
-
-.xavier-fci-wrapper:hover {
-  background-color: var(--jp-layout-color2);
-}
-
-/* .column-histogram-quan {
-  background: white; 
-  height: 20px; 
-  width: 150px; 
-  margin-right: 10px; 
-  position: relative; 
-} */
 
 .xavier-mct-histogram-bar {
   display: inline-block;

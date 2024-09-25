@@ -26,13 +26,6 @@
   height: 100%;
 }
 
-.xavier-view-split {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: var(--jp-border-color2);
-}
-
 .xavier-sidepanel-view-title {
   display: block;
   width: 100%;
