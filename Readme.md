@@ -1,5 +1,10 @@
 ## Source Code of Xavier: Toward Better Coding Assistance in Authoring Tabular Data Wrangling Scripts
 
+<img src="./UI_Overview.png" zoom="50%">
+
+
+### Project Structure
+
 - `backend/`: The backend of Xavier.
 - `frontend/`: The frontend of Xavier.
 
@@ -27,9 +32,9 @@
 ```bash
 
 # At the root directory of the project
-# Create a new environment named "xavier_prompt" and install required packages.
-conda create -n xavier_prompt python=3.10.13 groq flask flask-cors python-dotenv typeguard=3.0.2
-activate xavier_prompt
+# Create a new environment named "xavier_env" and install required packages.
+conda create -n xavier_env python=3.10.13 groq flask flask-cors python-dotenv typeguard=3.0.2
+activate xavier_env
 
 # Run the server:
 cd backend
@@ -40,13 +45,13 @@ python server_main.py
 ### How to run the frontend
 
 - If you are using Windows, please follow [this instruction](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development) to enable the developer mode.
-- Install required packages in the "xavier_prompt" environment. Note that "pip" should be used instead of "conda" for installing the packages.
+- Install required packages in the "xavier_env" environment. Note that "pip" should be used instead of "conda" for installing the packages.
 
 ```bash
 
 # At the root directory of the project
 # If you have not activated the environment:
-activate xavier_prompt
+activate xavier_env
 cd frontend
 
 # Set suitable registry if you encounter network issues. For instance in China, you can use the following commands:
@@ -82,7 +87,7 @@ jlpm run build
 # At the root directory of the project
 cd demo
 # If you have not activated the environment:
-activate xavier_prompt
+activate xavier_env
 jupyter lab
 
 ```

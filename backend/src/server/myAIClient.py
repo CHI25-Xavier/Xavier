@@ -1,7 +1,7 @@
 import os
 from typeguard import typechecked
 from typing import List, Dict, Optional, Union
-from groq import Groq
+from openai import OpenAI
 
 from .. import constant as constX
 from src.debugger import debugger
@@ -13,11 +13,12 @@ class myAIClient():
     self.chatHistory: List[Dict[str, str]] = []
     utilsX.loadApiKey()
     self.model = model
-    self.groqClient = Groq(
+    self.groqClient = OpenAI(
+      base_url="https://api.groq.com/openai/v1",
       api_key=os.environ.get("GROQ_API_KEY"),
     )
 
-  def promptRemote(self, prompt: str, client: Union[Groq]) -> str:
+  def promptRemote(self, prompt: str, client: OpenAI) -> str:
     self.chatHistory = [{
       "role": "user",
       "content": prompt
