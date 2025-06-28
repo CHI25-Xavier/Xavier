@@ -91,3 +91,30 @@ activate xavier_env
 jupyter lab
 
 ```
+
+
+### How to uninstall Xavier
+
+```sh
+pip uninstall xavier
+
+# In frontend directory
+cd frontend
+rmdir /s /q node_modules
+rmdir /s /q .yarn
+rmdir /s /q lib
+rmdir /s /q xavier\labextension
+del xavier\_version.py
+del yarn.lock
+del tsconfig.tsbuildinfo
+
+# Clear Python cache
+rmdir /s /q xavier\__pycache__
+rmdir /s /q xavier\server\__pycache__
+rmdir /s /q xavier\server\lexAnalysis\__pycache__
+rmdir /s /q xavier\server\prompt\__pycache__
+rmdir /s /q xavier\server\server\__pycache__
+rmdir /s /q xavier\server\trivial\__pycache__
+
+jupyter lab clean
+```

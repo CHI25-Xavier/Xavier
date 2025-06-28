@@ -2,8 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from typeguard import typechecked
 
-from src.server.myAIClient import myAIClient
-from src.datatypes import List, Dict, Optional
+from ..server.myAIClient import myAIClient
+from ..datatypes import List, Dict, Optional
 
 @typechecked
 class myCompletionServer:

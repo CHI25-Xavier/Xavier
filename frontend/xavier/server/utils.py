@@ -2,21 +2,15 @@ import re
 import dotenv
 from typeguard import typechecked
 
-from src.datatypes import List, Dict, Any, Union, Optional, ColumnInfo
-from src.constant import AST_POS, COMPLETION_ITEM_KIND, SPECIAL_CASE, SptMethodName
-from src.debugger import debugger
-
-@typechecked
-def loadApiKey():
-  hasset = dotenv.load_dotenv()
-  if not hasset:
-    raise RuntimeError(".env file not found")
+from .datatypes import List, Dict, Any, Union, Optional, ColumnInfo
+from .constant import AST_POS, COMPLETION_ITEM_KIND, SPECIAL_CASE, SptMethodName
+from .debugger import debugger
 
 @typechecked
 def getCompletionItemTypeFromAstPos(astPos: int) -> str:
   kind = COMPLETION_ITEM_KIND.get(astPos)
   if kind is None:
-    debugger.warning(f"[getCompletionItemTypeFromAstPos] Invalid astPos: {astPos}")
+    # debugger.warning(f"[getCompletionItemTypeFromAstPos] Invalid astPos: {astPos}")
     return ""
   else:
     return kind
@@ -88,7 +82,7 @@ def formatNumber(num: Union[int, float]) -> Union[int, float]:
   elif isinstance(num, float):
     return round(num, 2)
   else:
-    debugger.warning(f"[format_number] Invalid input type: {type(num)}")
+    # debugger.warning(f"[format_number] Invalid input type: {type(num)}")
     return num
 
 @typechecked

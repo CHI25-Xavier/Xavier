@@ -42,7 +42,7 @@ export class SidePanelFullView extends React.Component<IProps, IState> {
 
     this.handleModelChange = this.handleModelChange.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
-    this.onLinkCodeBtnClick = this.onLinkCodeBtnClick.bind(this);
+    this.onAPIBtnClick = this.onAPIBtnClick.bind(this);
   }
 
   componentDidMount() {
@@ -66,8 +66,12 @@ export class SidePanelFullView extends React.Component<IProps, IState> {
     });
   }
 
-  onLinkCodeBtnClick() {
-    this.setState({ _isLive: !this.state._isLive });
+  onAPIBtnClick() {
+    const apiKey = prompt("Please enter your API Key:");
+    if (!apiKey) {
+      return;
+    }
+    this._model.setAPIKey(apiKey);
   }
 
   renderTitle() {
@@ -79,13 +83,13 @@ export class SidePanelFullView extends React.Component<IProps, IState> {
         <div className="xavier-st-text">
           Table View
         </div>
-        {/* <div  className="xavier-st-btn"
+        <div  className="xavier-st-btn"
               style={{
                 borderColor: this.state._isLive ? "#1890ff" : "#d9d9d9",
                 color: this.state._isLive ? "#1890ff" : undefined,
                 boxShadow: this.state._isLive ? "inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102, 175, 233, .6)" : undefined,
               }}
-              onClick={this.onLinkCodeBtnClick} >Link to code</div> */}
+              onClick={this.onAPIBtnClick} >Enter API Key</div>
       </div>
     );
   }

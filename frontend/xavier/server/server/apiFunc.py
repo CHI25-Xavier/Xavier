@@ -1,21 +1,21 @@
 import copy
 from typeguard import typechecked
 
-from src.lexAnalysis.pyParse import getPandasAlias, matchRulesPDFuncSig, matchRulesGlobal, matchRulesDfFuncSig, matchRulesSeFuncSig, matchRulesSeStrFuncSig, getSTFromMatchDetail, isComment
+from ..lexAnalysis.pyParse import getPandasAlias, matchRulesPDFuncSig, matchRulesGlobal, matchRulesDfFuncSig, matchRulesSeFuncSig, matchRulesSeStrFuncSig, getSTFromMatchDetail, isComment
 from ..lexAnalysis import pyParse as pyParseX
 from .. import datatypes as dtX
 from ..prompt import createPrompt as cpX
 from .. import utils as utilsX
 from ..lexAnalysis import fixJedi as fixJediX
 
-from src.server.myAIClient import myAIClient
-from src.lexAnalysis.pyParse import get_tokens_from_code
-from src.constant import AST_POS, SpecialTokens, SPECIAL_CASE, SptMethodName, DF_INFO_TYPE, PROMPT_MARKER
-from src.server.myCompletionServer import myCompletionServer
-from src.datatypes import List, Tuple, Optional, PartialCodeInfo, CompletionItem, JupyterlabToken, TokenInfo
-from src.trivial.trivialComplete import trivialComplete
+from ..server.myAIClient import myAIClient
+from ..lexAnalysis.pyParse import get_tokens_from_code
+from ..constant import AST_POS, SpecialTokens, SPECIAL_CASE, SptMethodName, DF_INFO_TYPE, PROMPT_MARKER
+from ..server.myCompletionServer import myCompletionServer
+from ..datatypes import List, Tuple, Optional, PartialCodeInfo, CompletionItem, JupyterlabToken, TokenInfo
+from ..trivial.trivialComplete import trivialComplete
 from ..trivial import specialCaseComplete as sccX
-from src.debugger import debugger
+from ..debugger import debugger
 from ..prompt import share as shareX
 from ..prompt import fmtCtrl as fmtCtrlX
 
@@ -32,8 +32,8 @@ def cacheCodeMatch(pTokens: List[TokenInfo], cacheTokens: List[TokenInfo]) -> bo
   return True
 
 @typechecked
-def try_complete(server: myCompletionServer, client: myAIClient, previousCode2D: List[List[str]], token: JupyterlabToken, tableLvInfo: dtX.TableLevelInfoT, colLvInfo: dtX.ColLevelInfoT, rowLvInfo: dtX.RowLevelInfoT) -> Tuple[List[CompletionItem], PartialCodeInfo]:
-  analyze_resp = try_analyze_code(server, previousCode2D, tableLvInfo)
+def try_complete(client: myAIClient, previousCode2D: List[List[str]], token: JupyterlabToken, tableLvInfo: dtX.TableLevelInfoT, colLvInfo: dtX.ColLevelInfoT, rowLvInfo: dtX.RowLevelInfoT) -> Tuple[List[CompletionItem], PartialCodeInfo]:
+  analyze_resp = try_analyze_code(previousCode2D, tableLvInfo)
 
   # debugger.info(f"analyze_resp: {analyze_resp}")
   # return []
@@ -81,7 +81,7 @@ def try_complete(server: myCompletionServer, client: myAIClient, previousCode2D:
   return token_list, analyze_resp
 
 @typechecked
-def try_analyze_code(server: myCompletionServer, code: List[List[str]], tableLvInfo: dtX.TableLevelInfoT) -> PartialCodeInfo:
+def try_analyze_code(code: List[List[str]], tableLvInfo: dtX.TableLevelInfoT) -> PartialCodeInfo:
   pandasAlias = getPandasAlias(code)
   lastline = code[-1][-1]
   lastline_tokens = get_tokens_from_code(lastline, True)
@@ -238,6 +238,6 @@ def try_analyze_code(server: myCompletionServer, code: List[List[str]], tableLvI
       res["df_name"] = dfName
       res["col_name"] = colName
 
-  debugger.info(f"[try_analyze_code] res: {res} \nsig: {sigs}")
+  # debugger.info(f"[try_analyze_code] res: {res} \nsig: {sigs}")
   return res
 

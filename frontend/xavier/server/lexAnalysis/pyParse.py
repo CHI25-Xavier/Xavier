@@ -3,12 +3,12 @@ import copy
 import tokenize
 from typeguard import typechecked
 
-from src.constant import AST_POS, SpecialTokens, SPECIAL_CASE
+from ..constant import AST_POS, SpecialTokens, SPECIAL_CASE
 from .. import datatypes as dtX
-from src.datatypes import Set, List, Dict, Union, Literal, Optional, Tuple, Any, TokenInfo, MultiLevelPrefix, SpecialTokenMapping
-from src.debugger import debugger
-from src.lexAnalysis.analyzeConfig import ANALYZE_RULES, AnalyzeEntry, AnalyzeClasses
-from src.utils import removeQuotes
+from ..datatypes import Set, List, Dict, Union, Literal, Optional, Tuple, Any, TokenInfo, MultiLevelPrefix, SpecialTokenMapping
+from ..debugger import debugger
+from ..lexAnalysis.analyzeConfig import ANALYZE_RULES, AnalyzeEntry, AnalyzeClasses
+from ..utils import removeQuotes
 
 @typechecked
 def get_tokens_from_code(code: str, isStripped: bool = False) -> List[TokenInfo]:  
@@ -393,13 +393,14 @@ def matchRulesGlobal(lastline_tokens: List[TokenInfo], pandasAlias: str, allDfIn
     found = False
     oneCfg = gblCfg.get(id)
     if (oneCfg is None) or (oneCfg.get(AnalyzeEntry.RULES) is None):
-      debugger.warning(f"[matchRulesGlobal] No analyze rules for {id}")
+      # debugger.warning(f"[matchRulesGlobal] No analyze rules for {id}")
       continue
     rules: List[Dict[str, Any]] = oneCfg.get(AnalyzeEntry.RULES)
     for r in rules:
       mlPrefix: Optional[List[MultiLevelPrefix]] = r.get(AnalyzeEntry.ML_PREFIX)
       if mlPrefix is not None:
-        debugger.warning(f"[matchRulesGlobal] Multi-level prefix is currently not supported for global rules")
+        # debugger.warning(f"[matchRulesGlobal] Multi-level prefix is currently not supported for global rules")
+        pass
       llPrefix: List[str] = r.get(AnalyzeEntry.LL_PREFIX)
       isMatch, matchDetail = prefixMatch(lastline_tokens, llPrefix, pandasAlias, list(allDfInfo.keys()))
       if isMatch:
@@ -591,7 +592,7 @@ def specialCaseDetect(lastline_tokens: List[TokenInfo], pandasAlias: str, tableL
 
   case7 = len(lastline_tokens) >= 2 and lastline_tokens[-2]["string"] in ["'", '"'] and lastline_tokens[-1]["exact_type"] == tokenize.NAME
 
-  debugger.info(f"[specialCaseDetect] {[(t['string'], t['exact_type']) for t in lastline_tokens]}, {case3}, {case4}, {case5}, {case6}, {case7}")
+  # debugger.info(f"[specialCaseDetect] {[(t['string'], t['exact_type']) for t in lastline_tokens]}, {case3}, {case4}, {case5}, {case6}, {case7}")
   if case6:
     return SPECIAL_CASE.DF_SELECT_COL_2
   elif case5:

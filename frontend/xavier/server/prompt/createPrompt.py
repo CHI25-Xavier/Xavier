@@ -6,18 +6,18 @@ from . import share as shareX
 from .. import datatypes as dtX
 from .. import utils as utilsX
 
-from src.prompt.fmtCtrl import fmtCtrl_dfVar, fmtCtrl_listOfDf, fmtCtrl_optionalParams, fmtCtrl_selectColumnNames, fmtCtrl_methodRecommendation, fmtCtrl_colVar, fmtCtrl_params, fmtCtrl_binopRHS, fmtCtrl_colIdx, fmtCtrl_aggMethod, fmtCtrl_comment, fmtCtrl_codeLine, fmtCtrl_Param, fmtCtrl_condition
-from src.prompt.parseGPTOutput import parseReCodeObj
-from src.server.myAIClient import myAIClient
-from src.datatypes import PartialCodeInfo, CompletionItem, JupyterlabToken, TableLevelInfoT
-from src.constant import AST_POS, PROMPT_SPLITTER, COMPLETE_WHAT, SptMethodName
-from src.debugger import debugger
+from ..prompt.fmtCtrl import fmtCtrl_dfVar, fmtCtrl_listOfDf, fmtCtrl_optionalParams, fmtCtrl_selectColumnNames, fmtCtrl_methodRecommendation, fmtCtrl_colVar, fmtCtrl_params, fmtCtrl_binopRHS, fmtCtrl_colIdx, fmtCtrl_aggMethod, fmtCtrl_comment, fmtCtrl_codeLine, fmtCtrl_Param, fmtCtrl_condition
+from ..prompt.parseGPTOutput import parseReCodeObj
+from ..server.myAIClient import myAIClient
+from ..datatypes import PartialCodeInfo, CompletionItem, JupyterlabToken, TableLevelInfoT
+from ..constant import AST_POS, PROMPT_SPLITTER, COMPLETE_WHAT, SptMethodName
+from ..debugger import debugger
 
 @typechecked
 def getFmtCtrlByAstPos(astPosEnum: int, method_name: str):
   completeWhatStr = COMPLETE_WHAT.get(astPosEnum, "")
   if not completeWhatStr:
-    debugger.warning(f"[getFmtCtrlByAstPos] not supported astPosEnum: {astPosEnum}")
+    # debugger.warning(f"[getFmtCtrlByAstPos] not supported astPosEnum: {astPosEnum}")
     return ""
 
   if astPosEnum == AST_POS.DF_VAR:
@@ -48,7 +48,7 @@ def getFmtCtrlByAstPos(astPosEnum: int, method_name: str):
   elif astPosEnum == AST_POS.CONDITION:
     return fmtCtrl_condition(completeWhatStr)
   else:
-    debugger.warning(f"[getFmtCtrlByAstPos] not supported astPosEnum: {astPosEnum}")
+    # debugger.warning(f"[getFmtCtrlByAstPos] not supported astPosEnum: {astPosEnum}")
     return ""
 
 # SC = special case
@@ -59,7 +59,7 @@ def gptCompleteForSC(pCode: str, method_name: str = "", need_obj: int = -1, tabl
   # get dfInfo
   dfInfoPrompt: str = f"{dfInfoX.dataInfoPreamble()}\n"
   if (tableLvInfo is None) and (columnLvInfo is None) and (rowLvInfo is None):
-    debugger.warning(f"[gptCompleteForSC] data context not specified")
+    # debugger.warning(f"[gptCompleteForSC] data context not specified")
     return None
   if tableLvInfo is not None:
     dfInfoPrompt += dfInfoX.multiTableLvInfoPrompt(tableLvInfo)
@@ -101,7 +101,7 @@ def filterDataContext(arg: PartialCodeInfo, tableLvInfo: Optional[dtX.TableLevel
   filteredCLI: Optional[dtX.ColLevelInfoT] = None
   filteredRLI: Optional[dtX.RowLevelInfoT] = None
   if (not method_name) or (need_obj < 0):
-    debugger.warning(f"[filterDataContext] method_name {method_name} or need_obj {need_obj} not specified")
+    # debugger.warning(f"[filterDataContext] method_name {method_name} or need_obj {need_obj} not specified")
     return filteredTLI, filteredCLI, filteredRLI
   
   if method_name == SptMethodName.DF_COL or method_name == SptMethodName.COL_METHOD_NAME:

@@ -8,6 +8,7 @@ import * as utils from "../utils";
 
 export class SidePanelModel {
 
+    private _api_key: string = "";
     private _observers: Set<() => void> = new Set();
     private _notebook: NBApi | undefined;
     private _ready: boolean = false;
@@ -43,6 +44,11 @@ export class SidePanelModel {
         // this.setSelectedDFName = this.setSelectedDFName.bind(this);
         this.setPreviewItems = this.setPreviewItems.bind(this);
         this.resetPreviewItems = this.resetPreviewItems.bind(this);
+        this.setAPIKey = this.setAPIKey.bind(this);
+    }
+
+    get api_key(): string {
+        return this._api_key;
     }
 
     get ready(): boolean {
@@ -240,6 +246,12 @@ export class SidePanelModel {
             newTables: {},
             op: null
         });
+    }
+
+    public setAPIKey(apiKey: string) {
+        this._api_key = apiKey;
+        this._executor.exeSetGroqAPIKey(apiKey);
+        this.notifyObservers();
     }
 
     /**

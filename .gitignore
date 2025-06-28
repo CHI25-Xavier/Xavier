@@ -122,3 +122,8 @@ dmypy.json
 yarn.lock
 
 .VSCodeCounter
+
+
+.env
+.idea
+log.txt

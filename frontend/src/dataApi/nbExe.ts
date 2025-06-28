@@ -1,7 +1,10 @@
 import type { ISessionContext } from '@jupyterlab/apputils';
 import type { KernelMessage } from '@jupyterlab/services';
+import { CodeEditor } from '@jupyterlab/codeeditor';
+
 import _ from 'lodash';
-import { TDFRow, IColInfoAll, IDFInfoAll, IValueCount, IHistogramBin, IColInfo, IDfCondAll, IDFInfo } from '../sidePanel/interface';
+import { TDFRow, IColInfoAll, IDFInfoAll, IValueCount, IHistogramBin, IColInfo, IDfCondAll, IDFInfo, IColLvInfo, IRowLvInfo, ITableLvInfo } from '../sidePanel/interface';
+import { CompResult } from '../interfaces';
 
 type ExecResult = { content: string[]; exec_count: number };
 
@@ -712,6 +715,50 @@ export class NBExe {
                 },
                 histograms: {}
             };
+        }
+    }
+
+    public async exeCompleteCode(previousCode2D: string[][], token: CodeEditor.IToken, tableLvInfo: ITableLvInfo, rowLvInfo: IRowLvInfo, colLvInfo: IColLvInfo): Promise<CompResult> {
+        const q = JSON.stringify({
+            "previousCode2D": previousCode2D,
+            "token": {
+                ...token,
+                "type": token.type === undefined ? null : token.type, 
+            },
+            "tableLvInfo": tableLvInfo,
+            "rowLvInfo": rowLvInfo,
+            "colLvInfo": colLvInfo
+        });
+        const code = `idg_xavier.complete("""${replaceSpecial(q)}""")`;
+        try {
+            const res = await this.executePythonXavier(code);
+            const content = res['content']; // might be null
+            const json_res = JSON.parse(content.join(""));
+            return json_res as CompResult;
+        } catch (error) {
+            console.warn(`[Error caught] in exeCompleteCode executing: ${code}`, error);
+            return {
+                tokenList: [],
+                analyzeResp: null,
+            }
+        }
+    }
+
+    public async exeSetGroqAPIKey(apiKey: string): Promise<void> {
+        const code = `idg_xavier.setGroqAPIKey("${replaceSpecial(apiKey)}")`;
+        try {
+            const res = await this.executePythonXavier(code);
+            const content = res['content']; // might be null
+            console.log("[exeSetGroqAPIKey] response: ", content);
+            const json_res = JSON.parse(content.join(""));
+            
+            if (json_res.status) {
+                console.log("[exeSetGroqAPIKey] API Key set successfully");
+            } else {
+                console.warn("[exeSetGroqAPIKey] API Key set failed");
+            }
+        } catch (error) {
+            console.warn(`[Error caught] in exeSetGroqAPIKey executing: ${code}`, error);
         }
     }
 }

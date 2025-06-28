@@ -2,11 +2,11 @@ from typeguard import typechecked
 from typing import List
 
 from .. import datatypes as dtX
-from src.constant import AST_POS, DF_INFO_TYPE, SPECIAL_CASE, SptMethodName
-from src.debugger import debugger
-from src.docCtrl import genCtrlDocumentation
-from src.utils import getCompletionItemTypeFromAstPos, findAllVarLastOccur, sortDfByOccur, code2DTo0D
-from src.lexAnalysis.pyParse import get_tokens_from_code
+from ..constant import AST_POS, DF_INFO_TYPE, SPECIAL_CASE, SptMethodName
+from ..debugger import debugger
+from ..docCtrl import genCtrlDocumentation
+from ..utils import getCompletionItemTypeFromAstPos, findAllVarLastOccur, sortDfByOccur, code2DTo0D
+from ..lexAnalysis.pyParse import get_tokens_from_code
 from ..prompt.createPrompt import gptCompleteForSC
 from ..server.myAIClient import myAIClient
 from ..prompt import parseGPTOutput as parseGPTX
@@ -40,7 +40,7 @@ def specialCaseComplete(client: myAIClient, token: dtX.JupyterlabToken, tableLvI
   lastLineCode = previousCode.split("\n")[-1]
   special_case = arg["special_case"]
   if special_case == SPECIAL_CASE.NONE:
-    debugger.warning(f"[specialCaseComplete] special_case {special_case} not specified")
+    # debugger.warning(f"[specialCaseComplete] special_case {special_case} not specified")
     return token_list
   
   all_df_names = list(tableLvInfo.keys())

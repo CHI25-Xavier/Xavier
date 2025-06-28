@@ -1,10 +1,10 @@
 from typeguard import typechecked
 
-from src.utils import getCompletionItemTypeFromAstPos, removeQuotes, findAllVarLastOccur, sortDfByOccur, getColInfoByName, formatNumber
-from src.constant import AST_POS, SptMethodName
-from src.datatypes import List, Tuple, Union, PartialCodeInfo, CompletionItem, JupyterlabToken, NumericalStatsT
-from src.docCtrl import genCtrlDocumentation
-from src.debugger import debugger
+from ..utils import getCompletionItemTypeFromAstPos, removeQuotes, findAllVarLastOccur, sortDfByOccur, getColInfoByName, formatNumber
+from ..constant import AST_POS, SptMethodName
+from ..datatypes import List, Tuple, Union, PartialCodeInfo, CompletionItem, JupyterlabToken, NumericalStatsT
+from ..docCtrl import genCtrlDocumentation
+from ..debugger import debugger
 
 from .. import datatypes as dtX
 from ..prompt import parseGPTOutput as parseGPTX
@@ -36,7 +36,7 @@ def paramComplete(need_obj: int, token: JupyterlabToken, previousCode: str, anal
 @typechecked
 def defaultNumCompleteByStats(need_obj: int, token_offset: int, numStats: Union[None, NumericalStatsT], df_info_type: str, known_df_name: str, known_col_name: str, allDfInfo) -> List[CompletionItem]:
   if numStats is None:
-    debugger.warning(f"[trivialComplete] cell_value for value_filter should have valid numStats, but got {numStats}")
+    # debugger.warning(f"[trivialComplete] cell_value for value_filter should have valid numStats, but got {numStats}")
     return []
 
   q50 = formatNumber(numStats["q50"])
@@ -94,18 +94,18 @@ def cellValueComplete(need_obj: int, token: JupyterlabToken, previousCode: str, 
     col_name = None if analyze_resp["col_name"] is None else removeQuotes(analyze_resp["col_name"])
     cell_value = analyze_resp["cell_value"]
     if (df_name is None) or (col_name is None):
-      debugger.warning("[trivialComplete] cell_value for value_filter should have df_name and col_name")
+      # debugger.warning("[trivialComplete] cell_value for value_filter should have df_name and col_name")
       return []
     df_info = allDfInfo.get(df_name, {"columns": [], "num_rows": 0, "num_cols": 0})
     col_info = getColInfoByName(df_info["columns"], col_name)
     if col_info is None:
-      debugger.warning(f"[trivialComplete] cell_value for value_filter should have valid col_info, but got {col_info}")
+      # debugger.warning(f"[trivialComplete] cell_value for value_filter should have valid col_info, but got {col_info}")
       return []
     if col_info["statsType"] == "categorical":
       if cell_value is None:
         topK = col_info["topK"]
         if topK is None:
-          debugger.warning(f"[trivialComplete] cell_value for value_filter should have valid topK, but got {topK}")
+          # debugger.warning(f"[trivialComplete] cell_value for value_filter should have valid topK, but got {topK}")
           return []
         return list(map(lambda x: CompletionItem(
           value="\"" + x["value"] + "\"",

@@ -9,9 +9,17 @@ except ImportError:
     __version__ = "dev"
 
 from .DFInfoLib import *
+from .CompletionLib import *
 
 def _jupyter_labextension_paths():
     return [{
         "src": "labextension",
         "dest": "@xavier/xavier"
+    }]
+
+def _jupyter_server_extension_points():
+    """Return metadata for the server extension."""
+    return [{
+        "module": "xavier.server_extension",
+        "app": "xavier"
     }]

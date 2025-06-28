@@ -18,10 +18,9 @@ import {
 import { SourceChange } from '@jupyter/ydoc';
 import { IDocumentWidget } from '@jupyterlab/docregistry';
 
-import { completeQuery } from "../backendApi/completeApi";
 import * as utils from '../utils';
 import { CustomModel } from './customModel';
-import { CompResult, continuousHintingOptions, PyToken } from "../interfaces";
+import { continuousHintingOptions, PyToken } from "../interfaces";
 import { SidePanelModel } from '../dataApi/sidePanelModel';
 import { IDFStyleAll } from '../sidePanel/interface';
 import { concatTokens, findAllTableColumn, findColumnAddTemp, findColumnRenameTemp, findColumnFillnaTemp, findColumnSelectTemp, findColumnStrReplaceTemp, findGroupby, findPdMergeTemp, findTableConcatTemp, findTableFilterTemp, findTableMergeTemp, findTableSortTemp, tokenizePythonScript } from './pyTokenizer';
@@ -449,7 +448,8 @@ export class XavierCompleterProvider implements ICompletionProvider {
     }
     
     this.tempCompleter.show();
-    const queryRes: CompResult = await completeQuery(previousCode2D, token, this.dataModel.tableLvInfo, this.dataModel.rowLvInfo, this.dataModel.colLvInfo);
+    const queryRes = await this.dataModel.executor.exeCompleteCode(previousCode2D, token, this.dataModel.tableLvInfo, this.dataModel.rowLvInfo, this.dataModel.colLvInfo);
+    // const queryRes: CompResult = await completeQuery(previousCode2D, token, this.dataModel.tableLvInfo, this.dataModel.rowLvInfo, this.dataModel.colLvInfo);
     this.tempCompleter.hide();
     // this.lastAnalyze = queryRes.analyzeResp;
 

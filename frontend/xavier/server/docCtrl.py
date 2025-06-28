@@ -1,10 +1,10 @@
 import json
 from typeguard import typechecked
 
-from src.constant import DF_INFO_TYPE
-from src.datatypes import List, Tuple, Dict, Optional, Union, AllDataFrameStyleT, DocumentationT, ValueShowT, ColumnStyle
-from src.debugger import debugger
-from src.utils import fullWordMatch
+from .constant import DF_INFO_TYPE
+from .datatypes import List, Tuple, Dict, Optional, Union, AllDataFrameStyleT, DocumentationT, ValueShowT, ColumnStyle
+from .debugger import debugger
+from .utils import fullWordMatch
 
 @typechecked
 def initAllDfStyle(allDfInfo, allDfStyle: AllDataFrameStyleT) -> None:
@@ -31,12 +31,13 @@ def multiTableStyleCtrl(co: str, allDfStyle: AllDataFrameStyleT, known_dfName: O
   # 2. match nearby context
   if known_dfName:
     if known_dfName not in allDfStyle:
-      debugger.warning("[multiTableStyleCtrl] known_dfName not in allDfStyle")
+      # debugger.warning("[multiTableStyleCtrl] known_dfName not in allDfStyle")
       return
     need_dfName.append(known_dfName)
   # 3. further decide
   if len(need_dfName) == 0:
-    debugger.warning(f"[multiTableStyleCtrl] no dfName found for co: {co}, known_dfName: {known_dfName}.")
+    # debugger.warning(f"[multiTableStyleCtrl] no dfName found for co: {co}, known_dfName: {known_dfName}.")
+    pass
   else:
     for dfName in allDfStyle:
       if dfName in need_dfName:
@@ -49,7 +50,7 @@ def singleTableStyleCtrl(co: str, allDfStyle: AllDataFrameStyleT, known_dfName: 
   if known_dfName:
     # 1. match nearby context
     if known_dfName not in allDfStyle:
-      debugger.warning("[singleTableStyleCtrl] known_dfName not in allDfStyle")
+      # debugger.warning("[singleTableStyleCtrl] known_dfName not in allDfStyle")
       return
     need_dfName = known_dfName
   else:
@@ -60,7 +61,7 @@ def singleTableStyleCtrl(co: str, allDfStyle: AllDataFrameStyleT, known_dfName: 
         break
   # 3. further decide
   if need_dfName == "":
-    debugger.warning("[singleTableStyleCtrl] no dfName found for co: {co}, known_dfName: {known_dfName}.")
+    # debugger.warning("[singleTableStyleCtrl] no dfName found for co: {co}, known_dfName: {known_dfName}.")
     return
   allDfStyle[need_dfName]["isHidden"] = False
   allDfStyle[need_dfName]["isFold"] = False
@@ -94,7 +95,7 @@ def singleColumnStyleCtrl(co: str, allDfStyle: AllDataFrameStyleT, known_dfName:
   # 3. further decide: no df, or multiple df
   names = list(need_cols.keys())
   if len(names) == 0:
-    debugger.warning(f"[singleColumnStyleCtrl] no dataframe found for co: {co}, known_dfName: {known_dfName}, known_colName: {known_colName}, known_colIdxList: {known_colIdxList}.")
+    # debugger.warning(f"[singleColumnStyleCtrl] no dataframe found for co: {co}, known_dfName: {known_dfName}, known_colName: {known_colName}, known_colIdxList: {known_colIdxList}.")
     return
   elif len(names) > 1:
     for dfName in allDfStyle:
@@ -111,7 +112,7 @@ def singleColumnStyleCtrl(co: str, allDfStyle: AllDataFrameStyleT, known_dfName:
 
   colNames = list(map(lambda x: x["colName"], need_cols[names[0]]))
   if len(need_cols[names[0]]) == 0:
-    debugger.warning(f"[singleColumnStyleCtrl] no column found for co: {co}, known_dfName: {known_dfName}, known_colName: {known_colName}, known_colIdxList: {known_colIdxList}.")
+    # debugger.warning(f"[singleColumnStyleCtrl] no column found for co: {co}, known_dfName: {known_dfName}, known_colName: {known_colName}, known_colIdxList: {known_colIdxList}.")
     return
   elif len(need_cols[names[0]]) > 1:
     for colobj in allDfStyle[names[0]]["columns"]:
@@ -138,11 +139,13 @@ def genCtrlDocumentation(df_info_type: str, co: str, allDfInfo, known_dfName: Op
   elif df_info_type == DF_INFO_TYPE.SIN_TABLE:
     singleTableStyleCtrl(co, allDfStyle, known_dfName)
   elif df_info_type == DF_INFO_TYPE.MULTI_COL:
-    debugger.warning("[genCtrlDocumentation] DF_INFO_TYPE.MULTI_COL not supported yet")
+    # debugger.warning("[genCtrlDocumentation] DF_INFO_TYPE.MULTI_COL not supported yet")
+    pass
   elif df_info_type == DF_INFO_TYPE.SIN_COL:
     singleColumnStyleCtrl(co, allDfStyle, known_dfName, known_colName, known_colIdxList)
   else:
-    debugger.warning(f"[genCtrlDocumentation] not supported df_info_type: {df_info_type}")
+    # debugger.warning(f"[genCtrlDocumentation] not supported df_info_type: {df_info_type}")
+    pass
   
   value_show: Union[None, ValueShowT] = None
   if known_dfName and known_colName and known_cellValue:

@@ -1,5 +1,5 @@
-from src.constant import AST_POS, DF_INFO_TYPE, AnalyzeClasses, AnalyzeEntry, SpecialTokens, SptMethodName
-from src.datatypes import MultiLevelPrefix
+from ..constant import AST_POS, DF_INFO_TYPE, AnalyzeClasses, AnalyzeEntry, SpecialTokens, SptMethodName
+from ..datatypes import MultiLevelPrefix
 
 ANALYZE_RULES = {
   # global
