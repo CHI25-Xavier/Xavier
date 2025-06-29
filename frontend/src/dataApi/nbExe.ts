@@ -122,7 +122,7 @@ export class NBExe {
      * @param code the code string
      */
     private executePythonXavier(code: string): Promise<ExecResult> {
-        const importCode = 'import xavier as idg_xavier\n'
+        const importCode = 'import idgxavier as idg_xavier\n'
         const deleteCode = '\ndel idg_xavier\n'
         return this.executeCode(importCode + code + deleteCode);
     }

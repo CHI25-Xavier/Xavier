@@ -11,7 +11,7 @@ import { SidePanelModel } from './dataApi/sidePanelModel';
  * Initialization data for the extension.
  */
 const extension: JupyterFrontEndPlugin<void> = {
-  id: '@xavier/xavier:completion',
+  id: '@xavier/idgxavier:completion',
   description: 'Minimal JupyterLab extension setting up the completion.',
   autoStart: true,
   requires: [ICompletionProviderManager, INotebookTracker],
@@ -40,7 +40,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     const ccp = new XavierCompleterProvider(notebooks, dataModel, contextProvider, kernelProvider);
     completionManager.registerProvider(ccp);
 
-    console.log('@xavier: JupyterLab custom completer extension is activated!', ccp, app, completionManager, notebooks);
+    console.log('@idgxavier: JupyterLab custom completer extension is activated!', ccp, app, completionManager, notebooks);
   }
 };
 

@@ -7,9 +7,9 @@ node_modules/
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
-frontend/xavier/labextension
+frontend/idgxavier/labextension
 # Version file is handled by hatchling
-frontend/xavier/_version.py
+frontend/idgxavier/_version.py
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
@@ -127,3 +127,4 @@ yarn.lock
 .env
 .idea
 log.txt
+others/

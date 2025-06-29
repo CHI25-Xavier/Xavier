@@ -1,5 +1,4 @@
 import re
-import dotenv
 from typeguard import typechecked
 
 from .datatypes import List, Dict, Any, Union, Optional, ColumnInfo

@@ -3,7 +3,7 @@ requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version>=0
 build-backend = "hatchling.build"
 
 [project]
-name = "xavier"
+name = "idgxavier"
 license = {text = "BSD-3-Clause License"}
 requires-python = ">=3.8"
 classifiers = [
@@ -22,8 +22,18 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
+    "pandas>=2.2",
+    "jupyterlab>=4.0.0,<5",
+    "openai",
+    "typeguard<4"
 ]
-dynamic = ["version", "description", "authors", "urls", "keywords"]
+dynamic = ["version", "description", "authors", "keywords"]
+
+[project.urls]
+Homepage = "https://github.com/CHI25-Xavier/Xavier"
+Repository = "https://github.com/CHI25-Xavier/Xavier"
+"Bug Tracker" = "https://github.com/CHI25-Xavier/Xavier/issues"
+Documentation = "https://github.com/CHI25-Xavier/Xavier#readme"
 
 [tool.hatch.version]
 source = "nodejs"
@@ -32,24 +42,24 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["xavier/labextension"]
+artifacts = ["idgxavier/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"xavier/labextension" = "share/jupyter/labextensions/@xavier/xavier"
-"install.json" = "share/jupyter/labextensions/@xavier/xavier/install.json"
+"idgxavier/labextension" = "share/jupyter/labextensions/@xavier/idgxavier"
+"install.json" = "share/jupyter/labextensions/@xavier/idgxavier/install.json"
 
 [tool.hatch.build.hooks.version]
-path = "xavier/_version.py"
+path = "idgxavier/_version.py"
 
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = ["hatch-jupyter-builder>=0.5"]
 build-function = "hatch_jupyter_builder.npm_builder"
 ensured-targets = [
-    "xavier/labextension/static/style.js",
-    "xavier/labextension/package.json",
+    "idgxavier/labextension/static/style.js",
+    "idgxavier/labextension/package.json",
 ]
-skip-if-exists = ["xavier/labextension/static/style.js"]
+skip-if-exists = ["idgxavier/labextension/static/style.js"]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
@@ -59,7 +69,7 @@ npm = ["jlpm"]
 build_cmd = "install:extension"
 npm = ["jlpm"]
 source_dir = "src"
-build_dir = "xavier/labextension"
+build_dir = "idgxavier/labextension"
 
 [tool.jupyter-releaser.options]
 version_cmd = "hatch version"

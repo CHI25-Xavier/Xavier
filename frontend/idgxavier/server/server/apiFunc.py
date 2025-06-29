@@ -11,13 +11,10 @@ from ..lexAnalysis import fixJedi as fixJediX
 from ..server.myAIClient import myAIClient
 from ..lexAnalysis.pyParse import get_tokens_from_code
 from ..constant import AST_POS, SpecialTokens, SPECIAL_CASE, SptMethodName, DF_INFO_TYPE, PROMPT_MARKER
-from ..server.myCompletionServer import myCompletionServer
 from ..datatypes import List, Tuple, Optional, PartialCodeInfo, CompletionItem, JupyterlabToken, TokenInfo
 from ..trivial.trivialComplete import trivialComplete
 from ..trivial import specialCaseComplete as sccX
 from ..debugger import debugger
-from ..prompt import share as shareX
-from ..prompt import fmtCtrl as fmtCtrlX
 
 @typechecked
 def cacheCodeMatch(pTokens: List[TokenInfo], cacheTokens: List[TokenInfo]) -> bool:
