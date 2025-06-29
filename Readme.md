@@ -46,20 +46,23 @@ CompletionProvider:kernel = -1 (Disable default code completion)
 CompletionProvider:custom = 600 (Enable Xavier code completion)
 Default timeout for a provider: 100000000 (Set enough timeout for Xavier code completion)
 Enable autocompletion: true (Code completion is automatically triggered when typing, instead of pressing Tab to trigger)
-
 ```
 
 <img src="./assets/Setting_Completion.png"  >
 
+Remember to restart JupyterLab after changing the settings.
+
+```bash
+cd demo
+jupyter lab
+```
 
 4. You will see the Xavier extension in the right sidebar. You can click the "Xavier" button to open the Xavier panel. Click the "Enter API Key" button to input your Groq API key.
 
 <img src="./assets/InputAPIKey.png" style="zoom:50%;" >
 
 
-5. Done! You can start by familiarizing yourself with Xavier's key usage through the **Warm-up Task for Xavier.ipynb**. After getting comfortable with these controls, you can move on to the main demo with the Netflix dataset (**demo.ipynb**).
-
-
+5. Done! You can start by familiarizing yourself with Xavier's key usage through the [demo/Warm-up Task for Xavier.ipynb](./demo/Warm-up%20Task%20for%20Xavier.ipynb). After getting comfortable with these controls, you can move on to the main demo with the Netflix dataset ([demo/demo.ipynb](./demo/demo.ipynb)).
 
 ## Project Structure
 
@@ -67,10 +70,14 @@ Enable autocompletion: true (Code completion is automatically triggered when typ
 - `demo/`: A demo JupyterLab project to demonstrate how to use Xavier.
 
 
-## Developing
+## Development
 
 ### Todo
 
+- Store API Key in the local storage instead of the frontend.
+- Fix some bugs of string manipulation in the completion
+- Support other LLMs (Currently only supports Groq llama3-70b-8192)
+- Speed up the completion process
 
 
 ### Environment for reference
