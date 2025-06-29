@@ -1,40 +1,94 @@
-## Source Code of Xavier: Toward Better Coding Assistance in Authoring Tabular Data Wrangling Scripts
+# Xavier
 
-[![arXiv](https://img.shields.io/badge/arXiv-2305.19308-b31b1b.svg)](https://arxiv.org/abs/2503.02639)
-[![ACM Library](https://img.shields.io/badge/ACM%20Library-CHI'25%20Paper-blue.svg)](https://dl.acm.org/doi/10.1145/3706598.3714239)
-[![YouTube Demo](https://img.shields.io/badge/YouTube-Demo-red.svg)](https://youtu.be/KTnCHSv1heI?feature=shared)
+<p align="center">
+  <a href="https://pypi.org/project/idgxavier/">
+    <img alt="PyPi" src="https://img.shields.io/pypi/v/idgxavier.svg" align="center">
+  </a>
+  <a href="https://arxiv.org/abs/2503.02639">
+    <img alt="ArXiv" src="https://img.shields.io/badge/arXiv-2305.19308-b31b1b.svg" align="center">
+  </a>
+    <a href="https://dl.acm.org/doi/10.1145/3706598.3714239">
+      <img alt="ACM Library" src="https://img.shields.io/badge/ACM%20Library-CHI'25%20Paper-blue.svg" align="center">
+  </a>
+  <a href="https://youtu.be/KTnCHSv1heI?feature=shared">
+    <img alt="YouTube Demo" src="https://img.shields.io/badge/YouTube-Demo-red.svg" align="center">
+  </a>
+</p>
 
 
-Xavier is a JupyterLab extension designed to enhance data wrangling script authoring. Xavier maintains users’ awareness of data contexts while providing data-aware code suggestions. It automatically highlights the most relevant data based on the user's code, integrates both code and data contexts for more accurate suggestions, and instantly previews data transformation results for easy verification.
+This is the source code of our CHI'25 paper <a href="https://dl.acm.org/doi/10.1145/3706598.3714239">"Xavier: Toward Better Coding Assistance in Authoring Tabular Data Wrangling Scripts"</a>. Xavier is a JupyterLab extension designed to enhance data wrangling script authoring. Xavier maintains users’ awareness of data contexts while providing data-aware code suggestions. It automatically highlights the most relevant data based on the user's code, integrates both code and data contexts for more accurate suggestions, and instantly previews data transformation results for easy verification.
+
+To install Xavier:
+
+```bash
+pip install -U idgxavier
+```
+
+<img src="./assets/UI_Overview.png"  >
+
+## Usage
+
+1. Register Groq API key from [this link](https://console.groq.com/). The API key starts with `gsk_`. We recommend Groq because it is free and has a high response speed.
+
+2. After the installation, you can set up the jupyter lab environment by running the following command: 
+
+```bash
+# At the root directory of the project
+cd demo
+jupyter lab
+```
+
+3. Change the jupyterlab settings as follows:
+
+```
+CompletionProvider:context = -1 (Disable default code completion)
+CompletionProvider:kernel = -1 (Disable default code completion)
+CompletionProvider:custom = 600 (Enable Xavier code completion)
+Default timeout for a provider: 100000000 (Set enough timeout for Xavier code completion)
+Enable autocompletion: true (Code completion is automatically triggered when typing, instead of pressing Tab to trigger)
+
+```
+
+<img src="./assets/Setting_Completion.png"  >
 
 
-<img src="./UI_Overview.png" zoom="50%">
+4. You will see the Xavier extension in the right sidebar. You can click the "Xavier" button to open the Xavier panel. Click the "Enter API Key" button to input your Groq API key.
+
+<img src="./assets/InputAPIKey.png" style="zoom:50%;" >
 
 
-### Project Structure
+5. Done! You can start by familiarizing yourself with Xavier's key usage through the **Warm-up Task for Xavier.ipynb**. After getting comfortable with these controls, you can move on to the main demo with the Netflix dataset (**demo.ipynb**).
+
+
+
+## Project Structure
 
 - `frontend/`: The source code of Xavier.
 - `demo/`: A demo JupyterLab project to demonstrate how to use Xavier.
 
 
-### Developing
+## Developing
+
+### Todo
 
 
-#### Environment for reference
+
+### Environment for reference
 
 - Hardware
   - Processor: 12th Gen Intel(R) Core(TM) i7-12700H   2.30 GHz
   - RAM: 16 GB
   - Operator System: Windows 11 64-bit, based on x64 processor
 - Software
-  - Conda version: 23.11.0
   - Jupyter Lab version: >=4.0.0 (e.g. 4.2.5)
   - Pandas: >=2.2 (e.g. 2.2.3)
+  - Typeguard: <4 (e.g. 3.0.2)
+  - (Optional) Conda version: >23.7
 
-#### Installation
+### Installation
 
-- If you are using Windows, please follow [this instruction](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development) to enable the developer mode.
-- Install required packages. It is recommended to use a virtual environment like conda.
+1. If you are using Windows, please follow [this instruction](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development) to enable the developer mode.
+2. Install required packages. It is recommended to use a virtual environment like conda.
 
 ```bash
 
@@ -70,7 +124,7 @@ jlpm run build
 
 ```
 
-- After the installation, you can run the frontend by running the following command:
+3. After the installation, you can run the frontend by running the following command:
 
 ```bash
 
@@ -82,10 +136,10 @@ jupyter lab
 
 ```
 
-- Register Groq API key from [this link](https://console.groq.com/). The API key starts with `gsk_`. We recommend Groq because it is free and has a high response speed.
+4. Register Groq API key from [this link](https://console.groq.com/). The API key starts with `gsk_`. We recommend Groq because it is free and has a high response speed.
 
 
-#### How to uninstall Xavier
+### How to uninstall Xavier
 
 ```sh
 pip uninstall idgxavier
@@ -120,7 +174,7 @@ cd backend
 python server_main.py -->
 
 
-### Citation
+## Citation
 
 If you use Xavier in your research, please cite our paper:
 
